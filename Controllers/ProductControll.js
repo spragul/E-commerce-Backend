@@ -23,6 +23,7 @@ exports.getoneproductdata = async (req, res) => {
   try {
     let product = await productModel.find({_id:req.params.id});
     res.status(200).send({
+      message:"data fetching sucessfully",
       product,
     });
   } catch (error) {
@@ -97,47 +98,21 @@ exports.deleteproduct = async (req, res) => {
     });
   }
 };
-//Add Reviews
-// exports.AddReview = async (req, res) => {
-//   try {
-//     let product = await productModel.find({ _id: req.body.id });
-//     if (product) {
-//       product.reviews.userName = req.body.userName;
-//       product.reviews.message = req.body.message;
-//       await product.reviews.save();
-//     } else {
-//       res.status(400).send({ message: "product  Does Not Exists!" });
-//     }
-//   } catch (error) {
-//     res.status(500).send({
-//       message: "Internal Server Error",
-//       error,
-//     });
-//   }
-// };
 
-//Add Review Product
 
 exports.AddReview=async(req,res)=>{
   console.log(req.params.id,req.body)
   try {
-      let review=await UserModel.find({_id:req.body.idx});
-      console.log(review)
-      if(review){
         let product=await productModel.findOneAndUpdate(
           {
               _id: req.params.id
             },
             {
-              $push: { reviews:req.body.message}
+              $push: { reviews:{userName:req.body.userName,message:req.body.message}}
             }
-          );    
-          res.status(200).send({message:"Add Review Product",product});
-
-      }else{
-          res.status(400).send({message:"User Id not wrong"})
-      }
-      
+          );   
+          console.log(product); 
+          res.status(200).send({message:"Add Review Product",product});   
   } catch (error) {
       console.log(error);
       res.status(500).send({ rd: false, message: `Internal server error.\n\n${error}` });

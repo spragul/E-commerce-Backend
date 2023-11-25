@@ -9,6 +9,6 @@ router.get('/:id',productController.getoneproductdata);
 router.post('/adddata',Adminvalidate,productController.addProduct);
 router.put('/update/:id',Adminvalidate,productController.updateproduct);  
 router.delete('/delete/:id',Adminvalidate,productController.deleteproduct);
-router.patch('/addreview',validate,productController.AddReview);
+router.patch('/addreview/:id',validate,productController.AddReview);
 
 module.exports= router;
