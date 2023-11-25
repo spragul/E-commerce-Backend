@@ -52,6 +52,8 @@ exports.addProduct = async (req, res) => {
 };
 //update product details
 exports.updateproduct = async (req, res) => {
+  console.log(req.params.id)
+  console.log(req.body)
   try {
     let product = await productModel.findOne({ _id: req.params.id });
     if (product) {
@@ -96,23 +98,23 @@ exports.deleteproduct = async (req, res) => {
   }
 };
 //Add Reviews
-exports.AddReview = async (req, res) => {
-  try {
-    let product = await productModel.find({ _id: req.body.id });
-    if (product) {
-      product.reviews.userName = req.body.userName;
-      product.reviews.message = req.body.message;
-      await product.reviews.save();
-    } else {
-      res.status(400).send({ message: "product  Does Not Exists!" });
-    }
-  } catch (error) {
-    res.status(500).send({
-      message: "Internal Server Error",
-      error,
-    });
-  }
-};
+// exports.AddReview = async (req, res) => {
+//   try {
+//     let product = await productModel.find({ _id: req.body.id });
+//     if (product) {
+//       product.reviews.userName = req.body.userName;
+//       product.reviews.message = req.body.message;
+//       await product.reviews.save();
+//     } else {
+//       res.status(400).send({ message: "product  Does Not Exists!" });
+//     }
+//   } catch (error) {
+//     res.status(500).send({
+//       message: "Internal Server Error",
+//       error,
+//     });
+//   }
+// };
 
 //Add Review Product
 
